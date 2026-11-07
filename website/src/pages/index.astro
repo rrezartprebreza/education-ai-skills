@@ -1,5 +1,5 @@
 ---
-import { ArrowUpRight, Search, GraduationCap, Presentation, Library } from '@lucide/astro';
+import { ArrowUpRight, Search, GraduationCap, Presentation, Library, Download } from '@lucide/astro';
 import Layout from '../layouts/Layout.astro';
 import Install from '../components/Install.astro';
 import CopyBehavior from '../components/CopyBehavior.astro';
@@ -12,6 +12,7 @@ import { BASE } from '../lib/commands.mjs';
     <h1>Education AI Skills</h1>
     <p class="lead">Thoughtful teaching. Active learning. Responsible AI.</p>
     <div class="heading-meta"><span>10 workflows</span><span>Claude Code &amp; Codex</span><span>Open source</span></div>
+    <a class="download-entry" href={`${BASE}downloads/`}><Download size={17} aria-hidden="true" />Download a skills bundle</a>
   </section>
   <div class="workspace">
     <aside class="sidebar">

@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 website/node_modules/
 website/dist/
+website/public/downloads/
 website/.astro/
 website/test-results/
 website/playwright-report/

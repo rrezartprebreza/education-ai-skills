@@ -1,10 +1,11 @@
 ---
 import { Copy, Download } from '@lucide/astro';
-import { installCommand } from '../lib/commands.mjs';
+import { BASE, installCommand } from '../lib/commands.mjs';
 ---
 <details class="install">
   <summary><Download size={17} aria-hidden="true" /> Install a bundle</summary>
   <div class="install-body">
+    <p><a href={`${BASE}downloads/`}>Download a ZIP and setup guide</a></p>
     <div class="install-options">
       <label>Audience<select id="install-audience"><option value="professor">Professors</option><option value="student">Students</option></select></label>
       <label>Agent<select id="install-agent"><option value="claude">Claude Code</option><option value="codex">Codex</option></select></label>
