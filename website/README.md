@@ -26,8 +26,13 @@ The source renderer sanitizes Markdown HTML and maps local file links to the pub
 Keep confidential teaching material outside this public repository, even if a UI hides it.
 
 Downloads are built from the same canonical content as the plugin packages, not checked-in ZIP
-copies. Each archive includes `docs/DOWNLOADS.md` as `START-HERE.md`. CI retains the downloads
+copies. Each audience archive includes `docs/DOWNLOADS.md` as `START-HERE.md`. CI retains the downloads
 as a workflow artifact for PR review; only a merge to main publishes them to GitHub Pages.
 
 The `/start/` beginner page renders `docs/GETTING-STARTED.md`, which is also included in both
 ZIPs. Update that source document to keep website and offline onboarding consistent.
+
+The `/local/` page renders `docs/LOCAL-ASSISTANT.md` and offers a separate, versioned local
+assistant source ZIP with all ten skills, its dependency lockfile and setup guide. It includes
+neither model weights nor installed dependencies. The public website does not run the model
+or accept conversations; the downloaded application runs separately on the user's computer.

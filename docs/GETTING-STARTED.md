@@ -1,8 +1,9 @@
 # Start Here: Choose Your AI Application
 
-Education AI Skills is a free collection of instructions and templates, not an AI application.
-Choose one of the supported applications below, then install the professor or student skills.
-You do not need to install both applications. Their access requirements and usage limits are
+Education AI Skills provides free instructions and templates, plus a separate experimental
+local chat application. The skills themselves are not a model or an application.
+Choose one of the three routes below, then follow its setup guide.
+You do not need to install all three. Their access requirements and usage limits are
 separate from this project's MIT license; an institution may also restrict which tools you use.
 
 ## Choose a route
@@ -11,9 +12,9 @@ separate from this project's MIT license; an institution may also restrict which
 | --- | --- | --- |
 | Claude Code | Skills and setup guide | Claude Code access and a local course folder |
 | Codex | Skills and setup guide | Codex access and a local course folder |
-| Local AI assistant | Planned, not available | No application or local-model download is provided by this project yet |
+| Local AI assistant | Experimental source preview | Node.js 24+, Ollama and a downloaded local model; no paid API account required |
 
-This guide covers **local folder-based sessions**. Claude Code is not the ordinary Claude
+The Claude Code and Codex sections cover **local folder-based sessions**. Claude Code is not the ordinary Claude
 chat interface. Codex is not an ordinary ChatGPT chat. Putting a bundle ZIP into a chat
 attachment does not install its skills. Cloud sessions and other products have their own
 installation and access rules.
@@ -130,11 +131,16 @@ Review file edits before accepting them. Do not approve uploads, publication, em
 to unrelated folders just because a skill requests it. Skills are instructions, not a security
 boundary or authorization to act on institutional systems.
 
-## Local AI assistant: planned
+## Local AI assistant: experimental preview
 
-A separate local-model interface has been discussed but is **not built or included** in these
-downloads. There is no local assistant installer, bundled model, or tested hardware requirement
-to recommend yet. Continue with Claude Code or Codex if you already have approved access.
+The third option is a separate browser-based chat interface that runs on your computer and
+loads these skills through a local Ollama model. It does not require a Claude Code or Codex
+account. It is a source download, not a one-click installer, and includes no model weights.
+Hardware and model quality affect results; it is not a validated replacement for either client.
+
+Read the [local setup guide](LOCAL-ASSISTANT.md) for Node.js, native/Docker Ollama, model
+downloads, starting the application, and privacy limits. This app has no browsing or file
+execution tools; source checking is limited to supplied material.
 
 ## Scope and sources
 

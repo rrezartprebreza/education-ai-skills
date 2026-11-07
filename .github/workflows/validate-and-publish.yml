@@ -64,9 +64,33 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
           path: website/dist
+  local-assistant:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: local-assistant
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: local-assistant/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+        env:
+          ASTRO_TELEMETRY_DISABLED: "1"
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: local-assistant-browser-failures
+          path: local-assistant/test-results/
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    needs: [validate, website]
+    needs: [validate, website, local-assistant]
     runs-on: ubuntu-latest
     permissions:
       pages: write

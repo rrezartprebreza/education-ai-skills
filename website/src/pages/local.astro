@@ -1,0 +1,25 @@
+---
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { Download } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+import { BASE } from '../lib/commands.mjs';
+import { ROOT, renderMarkdown } from '../lib/content.mjs';
+const bundle = JSON.parse(await readFile(resolve(ROOT, 'website/public/downloads/local-assistant.json'), 'utf8'));
+const guide = await renderMarkdown(await readFile(resolve(ROOT, 'docs/LOCAL-ASSISTANT.md'), 'utf8'), 'docs/LOCAL-ASSISTANT.md');
+---
+<Layout title="Local AI Assistant" description="Experimental local education chat with Ollama, alongside Claude Code and Codex skill bundles.">
+  <div class="detail-heading">
+    <p class="eyebrow">THIRD OPTION · EXPERIMENTAL PREVIEW</p>
+    <h1>Local AI Assistant</h1>
+    <p class="lead">Your skills, a local model, and a teaching or learning conversation.</p>
+    <a class="text-button download-link" href={`${BASE}downloads/${bundle.filename}`} download={bundle.filename}><Download size={18} aria-hidden="true" />Download local assistant source ZIP</a>
+    <span class="download-size">Version {bundle.version} · {Math.ceil(bundle.bytes / 1024)} KB · Node.js and Ollama required</span>
+    <details class="checksum"><summary>SHA-256 checksum</summary><code>{bundle.sha256}</code></details>
+  </div>
+  <figure class="local-preview">
+    <img src={`${BASE}local-assistant.png`} width="1280" height="850" alt="Local assistant with Student mode, Socratic Tutor, a downloaded Qwen3 model and an empty conversation" />
+    <figcaption>Local interface preview. Small test models are not validated teaching assistants.</figcaption>
+  </figure>
+  <article class="prose beginner-guide" set:html={guide} />
+</Layout>

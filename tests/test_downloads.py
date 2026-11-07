@@ -31,11 +31,12 @@ class DownloadsTest(unittest.TestCase):
                 self.assertEqual(6, len(metadata["skills"]))
                 expected = {str(p.relative_to("plugins")): content for p, content in bundles.items()
                             if p.parts[1] == name}
-                self.assertEqual(set(expected) | {f"{name}/BUNDLE.json", f"{name}/START-HERE.md", f"{name}/GETTING-STARTED.md"}, set(archive.namelist()))
+                self.assertEqual(set(expected) | {f"{name}/BUNDLE.json", f"{name}/START-HERE.md", f"{name}/GETTING-STARTED.md", f"{name}/LOCAL-ASSISTANT.md"}, set(archive.namelist()))
                 for path, content in expected.items():
                     self.assertEqual(content, archive.read(path))
                 self.assertEqual((ROOT / "docs/DOWNLOADS.md").read_bytes(), archive.read(f"{name}/START-HERE.md"))
                 self.assertEqual((ROOT / "docs/GETTING-STARTED.md").read_bytes(), archive.read(f"{name}/GETTING-STARTED.md"))
+                self.assertEqual((ROOT / "docs/LOCAL-ASSISTANT.md").read_bytes(), archive.read(f"{name}/LOCAL-ASSISTANT.md"))
                 with tempfile.TemporaryDirectory() as directory:
                     root = Path(directory)
                     archive.extractall(root)
@@ -78,6 +79,20 @@ class DownloadsTest(unittest.TestCase):
             self.assertEqual(set(files), {file.name for file in output.iterdir()})
             for name, data in files.items():
                 self.assertEqual(data, (output / name).read_bytes())
+
+    def test_local_source_archive_is_complete_and_excludes_runtime_data(self):
+        files = download_files()
+        entry = json.loads(files["local-assistant.json"])
+        data = files[entry["filename"]]
+        self.assertEqual(hashlib.sha256(data).hexdigest(), entry["sha256"])
+        self.assertEqual(len(data), entry["bytes"])
+        with zipfile.ZipFile(io.BytesIO(data)) as archive:
+            names = set(archive.namelist())
+            prefix = "education-local-assistant/"
+            for file in ("LICENSE", "START-HERE.md", "catalog.json", "local-assistant/package-lock.json", "local-assistant/server.mjs", "local-assistant/src/pages/index.astro", "local-assistant/lib/skills.mjs"):
+                self.assertIn(prefix + file, names)
+            self.assertEqual(10, sum(name.endswith("/SKILL.md") for name in names))
+            self.assertFalse(any(part in name for name in names for part in ("node_modules", "test-results", "/dist/", ".env", ".git/", ".log")))
 
     def test_unsafe_archive_names_rejected(self):
         for name in ("../private", "/absolute", "bundle/../../escape", "bundle\\escape"):

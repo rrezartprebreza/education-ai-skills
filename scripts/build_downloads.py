@@ -46,6 +46,7 @@ def download_files(root=ROOT):
                  for path, data in bundles.items() if path.is_relative_to(prefix)}
         files[f"{name}/START-HERE.md"] = guide
         files[f"{name}/GETTING-STARTED.md"] = (root / "docs/GETTING-STARTED.md").read_bytes()
+        files[f"{name}/LOCAL-ASSISTANT.md"] = (root / "docs/LOCAL-ASSISTANT.md").read_bytes()
         files[f"{name}/BUNDLE.json"] = (json.dumps({
             "version": version, "audience": audience, "skills": skills,
             "repository": catalog["repository"],
@@ -57,8 +58,33 @@ def download_files(root=ROOT):
                         "skills": skills, "bytes": len(data),
                         "sha256": hashlib.sha256(data).hexdigest()})
     output["manifest.json"] = (json.dumps(entries, indent=2) + "\n").encode()
+    local_name = "education-local-assistant"
+    local_version = read_json(root / "local-assistant/package.json")["version"]
+    if not re.fullmatch(r"\d+\.\d+\.\d+", local_version):
+        raise ValueError("Invalid local assistant version")
+    local_files = {f"{local_name}/LICENSE": (root / "LICENSE").read_bytes(),
+                   f"{local_name}/catalog.json": (root / "catalog.json").read_bytes(),
+                   f"{local_name}/START-HERE.md": (root / "docs/LOCAL-ASSISTANT.md").read_bytes()}
+    for path, data in bundles.items():
+        if len(path.parts) > 2 and path.parts[2] == "skills":
+            local_files[f"{local_name}/{'/'.join(path.parts[2:])}"] = data
+    app = root / "local-assistant"
+    sources = [app / file for file in ("package.json", "package-lock.json", "astro.config.mjs", "server.mjs", "README.md", "playwright.config.mjs")]
+    for folder in ("lib", "src", "tests"):
+        sources.extend(file for file in (app / folder).rglob("*") if file.is_file())
+    for file in sorted(sources):
+        if file.is_symlink() or any(parent.is_symlink() for parent in file.parents if parent.is_relative_to(app)):
+            raise ValueError("Local assistant source must not contain symlinks")
+        if file.suffix not in (".json", ".mjs", ".astro", ".css", ".md"):
+            raise ValueError(f"Unexpected local assistant source: {file}")
+        local_files[f"{local_name}/local-assistant/{file.relative_to(app).as_posix()}"] = file.read_bytes()
+    filename = f"{local_name}-{local_version}.zip"
+    data = archive_bytes(local_files)
+    output[filename] = data
+    local_entry = {"filename": filename, "version": local_version, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()}
+    output["local-assistant.json"] = (json.dumps(local_entry, indent=2) + "\n").encode()
     output["SHA256SUMS.txt"] = "".join(
-        f"{entry['sha256']}  {entry['filename']}\n" for entry in entries).encode()
+        f"{entry['sha256']}  {entry['filename']}\n" for entry in [*entries, local_entry]).encode()
     return output
 
 
@@ -81,4 +107,4 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, default=ROOT / "website/public/downloads")
     args = parser.parse_args()
     build(args.output.absolute())
-    print("Built professor and student ZIPs, manifest and SHA-256 checksums.")
+    print("Built skill bundles, local assistant source ZIP, manifests and SHA-256 checksums.")
