@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feedback Assistant"
+  short_description: "Draft evidence-linked feedback for instructor review"
+  default_prompt: "Use $feedback-assistant. Using the supplied rubric and de-identified student response, draft constructive feedback with evidence and next steps; leave the final grade to me."

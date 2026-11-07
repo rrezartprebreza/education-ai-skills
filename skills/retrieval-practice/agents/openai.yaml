@@ -1,0 +1,4 @@
+interface:
+  display_name: "Retrieval Practice"
+  short_description: "Practice recall with feedback and spaced review"
+  default_prompt: "Use $retrieval-practice. Quiz me on database normalization one question at a time, check my reasoning, and revisit concepts I miss."

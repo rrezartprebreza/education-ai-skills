@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Source Checking"
+  short_description: "Check whether sources support academic claims"
+  default_prompt: "Use $research-source-checking. Check the references and claims in my supplied teaching notes; distinguish verified support, contradictions, and sources you cannot access."

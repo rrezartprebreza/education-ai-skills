@@ -1,0 +1,23 @@
+{
+  "name": "education-student-skills",
+  "version": "1.0.0",
+  "description": "Teaching and learning workflows for students, with source checking and responsible AI use.",
+  "skills": "./skills/",
+  "license": "MIT",
+  "author": {
+    "name": "Rrezart Prebreza",
+    "url": "https://github.com/rrezartprebreza"
+  },
+  "homepage": "https://github.com/rrezartprebreza/education-ai-skills",
+  "repository": "https://github.com/rrezartprebreza/education-ai-skills",
+  "interface": {
+    "displayName": "Education Student Skills",
+    "shortDescription": "Practical AI workflows for students.",
+    "developerName": "Rrezart Prebreza",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ]
+  }
+}

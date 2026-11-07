@@ -1,0 +1,12 @@
+{
+  "duration_minutes": 50,
+  "objectives": ["trace-recursion", "explain-base-case"],
+  "activities": [
+    {"title": "Prerequisite check", "minutes": 5, "objectives": []},
+    {"title": "Worked trace", "minutes": 10, "objectives": ["trace-recursion"]},
+    {"title": "Paired tracing", "minutes": 12, "objectives": ["trace-recursion"]},
+    {"title": "Independent practice", "minutes": 13, "objectives": ["trace-recursion", "explain-base-case"]},
+    {"title": "Misconception discussion", "minutes": 5, "objectives": ["explain-base-case"]},
+    {"title": "Exit question", "minutes": 5, "objectives": ["trace-recursion", "explain-base-case"]}
+  ]
+}

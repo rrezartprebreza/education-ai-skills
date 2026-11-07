@@ -1,0 +1,4 @@
+interface:
+  display_name: "Teaching Materials"
+  short_description: "Draft source-grounded slides, notes, and handouts"
+  default_prompt: "Use $teaching-materials. Turn my supplied recursion notes into a concise slide outline, speaker notes, and a student handout; keep instructor answers separate."

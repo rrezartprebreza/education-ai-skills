@@ -1,0 +1,21 @@
+{
+  "name": "education-ai-skills",
+  "owner": {
+    "name": "Rrezart Prebreza",
+    "url": "https://github.com/rrezartprebreza"
+  },
+  "plugins": [
+    {
+      "name": "education-professor-skills",
+      "source": "./plugins/education-professor-skills",
+      "description": "Six education workflows for professors, including two shared academic-practice skills.",
+      "category": "education"
+    },
+    {
+      "name": "education-student-skills",
+      "source": "./plugins/education-student-skills",
+      "description": "Six education workflows for students, including two shared academic-practice skills.",
+      "category": "education"
+    }
+  ]
+}

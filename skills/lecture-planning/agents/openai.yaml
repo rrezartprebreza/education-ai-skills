@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lecture Planning"
+  short_description: "Plan timed lectures around learning objectives"
+  default_prompt: "Use $lecture-planning. Plan a 90-minute introductory lecture on database normalization for second-year students, including a worked example, group activity, and exit question."

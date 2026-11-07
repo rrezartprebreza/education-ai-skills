@@ -1,0 +1,10 @@
+{
+  "name": "education-professor-skills",
+  "version": "1.0.0",
+  "description": "Teaching and learning workflows for professors, with source checking and responsible AI use.",
+  "author": {
+    "name": "Rrezart Prebreza"
+  },
+  "homepage": "https://github.com/rrezartprebreza/education-ai-skills",
+  "license": "MIT"
+}

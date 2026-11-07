@@ -1,0 +1,11 @@
+{
+  "total_points": 20,
+  "criteria": [
+    {"id": "inner-result", "description": "Predict the INNER JOIN result", "max_points": 8,
+      "levels": [{"points": 0, "descriptor": "No correct matching pairs"}, {"points": 4, "descriptor": "Some correct pairs with omissions or extras"}, {"points": 8, "descriptor": "All and only matching pairs; ordering not assessed"}]},
+    {"id": "left-result", "description": "Predict the LEFT JOIN result", "max_points": 8,
+      "levels": [{"points": 0, "descriptor": "No correct rows"}, {"points": 4, "descriptor": "Correct matches but missing or incorrect unmatched row"}, {"points": 8, "descriptor": "All matching and unmatched rows with correct NULLs"}]},
+    {"id": "explanation", "description": "Explain the unmatched row", "max_points": 4,
+      "levels": [{"points": 0, "descriptor": "No relevant explanation"}, {"points": 2, "descriptor": "Identifies row preservation without explaining NULL values"}, {"points": 4, "descriptor": "Explains preservation of the left row and NULLs for absent matches"}]}
+  ]
+}

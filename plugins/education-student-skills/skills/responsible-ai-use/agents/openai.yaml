@@ -1,0 +1,4 @@
+interface:
+  display_name: "Responsible AI Use"
+  short_description: "Apply course AI policies and document assistance"
+  default_prompt: "Use $responsible-ai-use. Help me interpret my course's AI policy and prepare an honest AI-use disclosure for the work I actually did."

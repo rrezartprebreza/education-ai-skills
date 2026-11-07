@@ -1,0 +1,87 @@
+{
+  "name": "Education AI Skills",
+  "version": "1.0.0",
+  "repository": "https://github.com/rrezartprebreza/education-ai-skills",
+  "skills": [
+    {
+      "id": "lecture-planning",
+      "title": "Lecture Planning",
+      "audience": "professor",
+      "category": "Teaching",
+      "summary": "Plan timed lectures around learning objectives",
+      "prompt": "Plan a 90-minute introductory lecture on database normalization for second-year students, including a worked example, group activity, and exit question."
+    },
+    {
+      "id": "teaching-materials",
+      "title": "Teaching Materials",
+      "audience": "professor",
+      "category": "Teaching",
+      "summary": "Draft source-grounded slides, notes, and handouts",
+      "prompt": "Turn my supplied recursion notes into a concise slide outline, speaker notes, and a student handout; keep instructor answers separate."
+    },
+    {
+      "id": "assessment-design",
+      "title": "Assessment Design",
+      "audience": "professor",
+      "category": "Assessment",
+      "summary": "Align questions and rubrics with course objectives",
+      "prompt": "Draft a formative assessment on SQL joins with an objective map, a 20-point rubric, and a separate instructor answer key."
+    },
+    {
+      "id": "feedback-assistant",
+      "title": "Feedback Assistant",
+      "audience": "professor",
+      "category": "Assessment",
+      "summary": "Draft evidence-linked feedback for instructor review",
+      "prompt": "Using the supplied rubric and de-identified student response, draft constructive feedback with evidence and next steps; leave the final grade to me."
+    },
+    {
+      "id": "socratic-tutor",
+      "title": "Socratic Tutor",
+      "audience": "student",
+      "category": "Learning",
+      "summary": "Explore understanding through questions and hints",
+      "prompt": "Help me understand recursion. Ask what I already know, then guide me through one small example and respond to my reasoning."
+    },
+    {
+      "id": "worked-example-coach",
+      "title": "Worked Example Coach",
+      "audience": "student",
+      "category": "Learning",
+      "summary": "Explain reasoning, then fade support into practice",
+      "prompt": "Show a worked example of binary search, explain each decision, then give me a similar problem to solve with less help."
+    },
+    {
+      "id": "retrieval-practice",
+      "title": "Retrieval Practice",
+      "audience": "student",
+      "category": "Study",
+      "summary": "Practice recall with feedback and spaced review",
+      "prompt": "Quiz me on database normalization one question at a time, check my reasoning, and revisit concepts I miss."
+    },
+    {
+      "id": "study-planning",
+      "title": "Study Planning",
+      "audience": "student",
+      "category": "Study",
+      "summary": "Build realistic study blocks around time and goals",
+      "prompt": "Help me plan two weeks of study for my algorithms exam using my deadlines, available hours, and topics I find difficult."
+    },
+    {
+      "id": "research-source-checking",
+      "title": "Research Source Checking",
+      "audience": "shared",
+      "category": "Research",
+      "summary": "Check whether sources support academic claims",
+      "prompt": "Check the references and claims in my supplied teaching notes; distinguish verified support, contradictions, and sources you cannot access."
+    },
+    {
+      "id": "responsible-ai-use",
+      "title": "Responsible AI Use",
+      "audience": "shared",
+      "category": "Academic Practice",
+      "summary": "Apply course AI policies and document assistance",
+      "prompt": "Help me interpret my course's AI policy and prepare an honest AI-use disclosure for the work I actually did."
+    }
+  ]
+}

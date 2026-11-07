@@ -1,0 +1,73 @@
+---
+import { ArrowUpRight, Search, GraduationCap, Presentation, Library } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+import Install from '../components/Install.astro';
+import CopyBehavior from '../components/CopyBehavior.astro';
+import { catalog } from '../lib/content.mjs';
+import { BASE } from '../lib/commands.mjs';
+---
+<Layout>
+  <section class="page-heading">
+    <p class="eyebrow">THE TEACHING &amp; LEARNING COLLECTION</p>
+    <h1>Education AI Skills</h1>
+    <p class="lead">Thoughtful teaching. Active learning. Responsible AI.</p>
+    <div class="heading-meta"><span>10 workflows</span><span>Claude Code &amp; Codex</span><span>Open source</span></div>
+  </section>
+  <div class="workspace">
+    <aside class="sidebar">
+      <h2>Audience</h2>
+      <div class="audience-filters" role="group" aria-label="Audience filter">
+        <button type="button" data-audience="all" aria-pressed="true"><Library size={18} aria-hidden="true" />Everyone<span>10</span></button>
+        <button type="button" data-audience="professor" aria-pressed="false"><Presentation size={18} aria-hidden="true" />Professors<span>6</span></button>
+        <button type="button" data-audience="student" aria-pressed="false"><GraduationCap size={18} aria-hidden="true" />Students<span>6</span></button>
+      </div>
+      <div class="sidebar-note"><span class="small-label">ACADEMIC PRACTICE</span><p>Human-reviewed teaching materials. Source-aware learning. Student privacy.</p><a href={`${BASE}guide/`}>Read the guide <ArrowUpRight size={14} aria-hidden="true" /></a></div>
+    </aside>
+    <section class="catalog" aria-label="Skill catalog">
+      <div class="catalog-tools">
+        <label class="search"><Search size={18} aria-hidden="true" /><input type="search" id="search" placeholder="Search skills or topics" aria-label="Search skills" /></label>
+        <span class="result-count" role="status" aria-live="polite">10 skills</span>
+      </div>
+      <div class="skill-grid">
+        {catalog.skills.map(skill => (
+          <a class="skill-card" href={`${BASE}skills/${skill.id}/`} data-role={skill.audience} data-search={`${skill.title} ${skill.summary} ${skill.category} ${skill.id}`.toLowerCase()}>
+            <div class="card-top"><span class:list={['category', skill.audience]}>{skill.category}</span><ArrowUpRight size={18} aria-hidden="true" /></div>
+            <h2>{skill.title}</h2><p>{skill.summary}.</p>
+            <span class="card-audience">{skill.audience === 'shared' ? 'Professors & students' : skill.audience === 'professor' ? 'For professors' : 'For students'}</span>
+          </a>
+        ))}
+      </div>
+      <div class="empty" hidden><h2>No matching skills</h2><button type="button" id="reset">Clear filters</button></div>
+      <Install />
+    </section>
+  </div>
+  <CopyBehavior />
+</Layout>
+<script>
+  const search = document.querySelector<HTMLInputElement>('#search')!;
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-audience]'));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.skill-card'));
+  const params = new URLSearchParams(location.search);
+  let audience = ['professor', 'student'].includes(params.get('audience') ?? '') ? params.get('audience')! : 'all';
+  search.value = params.get('q') ?? '';
+  function filter() {
+    const query = search.value.trim().toLowerCase();
+    let count = 0;
+    cards.forEach(card => {
+      const visible = (audience === 'all' || card.dataset.role === audience || card.dataset.role === 'shared') && (card.dataset.search ?? '').includes(query);
+      card.hidden = !visible;
+      if (visible) count++;
+    });
+    buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.audience === audience)));
+    document.querySelector('.result-count')!.textContent = `${count} ${count === 1 ? 'skill' : 'skills'}`;
+    document.querySelector<HTMLElement>('.empty')!.hidden = count !== 0;
+    const url = new URL(location.href);
+    if (query) url.searchParams.set('q', search.value.trim()); else url.searchParams.delete('q');
+    if (audience !== 'all') url.searchParams.set('audience', audience); else url.searchParams.delete('audience');
+    history.replaceState(null, '', url);
+  }
+  buttons.forEach(button => button.addEventListener('click', () => { audience = button.dataset.audience!; filter(); }));
+  search.addEventListener('input', filter);
+  document.querySelector('#reset')?.addEventListener('click', () => { audience = 'all'; search.value = ''; filter(); search.focus(); });
+  filter();
+</script>

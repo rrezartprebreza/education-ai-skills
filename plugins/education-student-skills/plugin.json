@@ -1,0 +1,6 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "education-student-skills",
+  "version": "1.0.0",
+  "description": "Teaching and learning workflows for students, with source checking and responsible AI use."
+}

@@ -1,0 +1,32 @@
+{
+  "name": "education-ai-skills",
+  "interface": {
+    "displayName": "Education AI Skills"
+  },
+  "plugins": [
+    {
+      "name": "education-professor-skills",
+      "source": {
+        "source": "local",
+        "path": "./plugins/education-professor-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "education-student-skills",
+      "source": {
+        "source": "local",
+        "path": "./plugins/education-student-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

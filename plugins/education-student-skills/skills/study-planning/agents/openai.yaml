@@ -1,0 +1,4 @@
+interface:
+  display_name: "Study Planning"
+  short_description: "Build realistic study blocks around time and goals"
+  default_prompt: "Use $study-planning. Help me plan two weeks of study for my algorithms exam using my deadlines, available hours, and topics I find difficult."

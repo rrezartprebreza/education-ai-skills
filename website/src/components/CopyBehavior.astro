@@ -1,0 +1,15 @@
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const target = document.getElementById(button.dataset.copy ?? '');
+      const status = button.closest('.copy-area, .install')?.querySelector('.copy-status');
+      if (!target || !status) return;
+      try {
+        await navigator.clipboard.writeText(target.textContent ?? '');
+        status.textContent = 'Copied';
+      } catch {
+        status.textContent = 'Clipboard unavailable. Select the text to copy it.';
+      }
+    });
+  });
+</script>

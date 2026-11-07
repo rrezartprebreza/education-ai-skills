@@ -1,0 +1,23 @@
+---
+import { ArrowLeft, ArrowUpRight, Copy } from '@lucide/astro';
+import Layout from '../../layouts/Layout.astro';
+import CopyBehavior from '../../components/CopyBehavior.astro';
+import { catalog, getSkill } from '../../lib/content.mjs';
+import { BASE, REPO } from '../../lib/commands.mjs';
+export function getStaticPaths() { return catalog.skills.map(skill => ({ params: { id: skill.id } })); }
+const skill = await getSkill(Astro.params.id!);
+---
+<Layout title={skill.title} description={skill.summary}>
+  <div class="detail-heading"><a class="back" href={BASE}><ArrowLeft size={16} aria-hidden="true" />Skills catalog</a><p class="eyebrow">{skill.category} / {skill.audience === 'shared' ? 'BOTH AUDIENCES' : skill.audience.toUpperCase()}</p><h1>{skill.title}</h1><p class="lead">{skill.summary}.</p></div>
+  <div class="detail-grid">
+    <article class="prose" set:html={skill.html}></article>
+    <aside class="detail-aside">
+      <div class="copy-area"><h2>Starting prompt</h2><p id="skill-prompt">{`Use ${skill.id}. ${skill.prompt}`}</p><button type="button" class="text-button" data-copy="skill-prompt"><Copy size={16} aria-hidden="true" />Copy prompt</button><p class="copy-status" role="status"></p></div>
+      <a class="source-link" href={`${REPO}/blob/main/${skill.source}`}>View SKILL.md <ArrowUpRight size={16} aria-hidden="true" /></a>
+      <a class="source-link" href={`${REPO}#installation`}>Install this skill <ArrowUpRight size={16} aria-hidden="true" /></a>
+      <h2>Examples &amp; templates</h2>
+      {skill.files.map(file => <details class="example"><summary>{file.name}</summary><pre>{file.text}</pre><a href={`${REPO}/blob/main/${file.source}`}>View source</a></details>)}
+    </aside>
+  </div>
+  <CopyBehavior />
+</Layout>

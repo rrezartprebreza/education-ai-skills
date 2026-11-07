@@ -1,0 +1,4 @@
+interface:
+  display_name: "Worked Example Coach"
+  short_description: "Explain reasoning, then fade support into practice"
+  default_prompt: "Use $worked-example-coach. Show a worked example of binary search, explain each decision, then give me a similar problem to solve with less help."

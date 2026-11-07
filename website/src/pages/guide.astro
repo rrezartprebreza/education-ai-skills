@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Install from '../components/Install.astro';
+import CopyBehavior from '../components/CopyBehavior.astro';
+import { BASE, REPO } from '../lib/commands.mjs';
+---
+<Layout title="Teaching and Learning Guide">
+  <div class="detail-heading"><p class="eyebrow">PRACTICE &amp; RESPONSIBILITY</p><h1>Teaching and Learning Guide</h1><p class="lead">Clear objectives, honest evidence, and human judgment.</p></div>
+  <div class="guide prose">
+    <h2>Choose your starting point</h2>
+    <p>Professor and student bundles each contain four focused skills plus source checking and responsible AI use. Start with one bundle; installing both may duplicate shared skills in a client. Individual folders support a custom selection.</p>
+    <Install />
+    <h2>For professors</h2><p>Supply the level, objectives, duration, approved sources, and assessment policy. Review generated materials before teaching, and keep student-facing content separate from private solutions. Final grading and institutional decisions remain with the instructor.</p>
+    <h2>For students</h2><p>Describe what you are trying to learn and what you have already attempted. Ask for questions, hints, explanations, or a parallel practice example. Follow the rules of your actual course and disclose assistance honestly where required.</p>
+    <h2>Protect people and course material</h2><p>Use synthetic or de-identified examples. Do not put student names, grades, confidential exams, answer keys, or accommodation records in a public repository. Audience bundles are not access controls. A model subscription or skill installation is not permission to share personal data.</p>
+    <h2>What has been checked</h2><p>Repository checks cover structure, metadata, generated bundles, and the arithmetic of selected agenda/rubric examples. Website checks cover content and interaction. These checks do not prove improved learning, fair grading, reliable citations, or institutional compliance.</p>
+    <p><a href={`${REPO}/blob/main/docs/QUALITY.md`}>Verification scope</a> · <a href={`${REPO}/blob/main/evaluations/README.md`}>Agent evaluation protocol</a></p>
+    <h2>Research context</h2><p>The design is informed by the <a href="https://ies.ed.gov/ncee/wwc/PracticeGuide/1">IES instruction and study guide</a> and <a href="https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research">UNESCO generative-AI guidance</a>. General educational research is not a study of this collection's effectiveness.</p>
+    <p><a href={BASE}>Return to the skills catalog</a></p>
+  </div><CopyBehavior />
+</Layout>

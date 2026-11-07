@@ -1,0 +1,4 @@
+interface:
+  display_name: "Socratic Tutor"
+  short_description: "Explore understanding through questions and hints"
+  default_prompt: "Use $socratic-tutor. Help me understand recursion. Ask what I already know, then guide me through one small example and respond to my reasoning."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Assessment Design"
+  short_description: "Align questions and rubrics with course objectives"
+  default_prompt: "Use $assessment-design. Draft a formative assessment on SQL joins with an objective map, a 20-point rubric, and a separate instructor answer key."

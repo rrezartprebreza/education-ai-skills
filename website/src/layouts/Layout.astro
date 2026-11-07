@@ -1,0 +1,41 @@
+---
+import { BookOpen, ArrowUpRight } from '@lucide/astro';
+import { BASE, REPO } from '../lib/commands.mjs';
+import '../styles/global.css';
+const { title = 'Education AI Skills', description = 'Teaching, learning, and academic practice with Claude Code and Codex.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title === 'Education AI Skills' ? title : `${title} | Education AI Skills`}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#16614b" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href={BASE}><BookOpen size={23} aria-hidden="true" /><span>Education AI Skills</span></a>
+        <nav aria-label="Main navigation">
+          <a href={BASE}>Catalog</a>
+          <a href={`${BASE}guide/`}>Guide</a>
+          <a href={REPO}>GitHub<ArrowUpRight size={14} aria-hidden="true" /></a>
+        </nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <div class="maintainer">
+        <img src={`${BASE}maintainer.jpg`} alt="Rrezart Prebreza" width="40" height="40" loading="lazy" />
+        <div><a href="https://github.com/rrezartprebreza">Rrezart Prebreza, PhD</a><span>Engineer, professor, and researcher</span></div>
+      </div>
+      <div class="footer-links"><a href="https://www.linkedin.com/in/rrezartprebreza/">LinkedIn</a><a href={`${REPO}/blob/main/docs/QUALITY.md`}>Quality &amp; limits</a><a href={`${REPO}/blob/main/LICENSE`}>MIT license</a></div>
+    </footer>
+  </body>
+</html>
