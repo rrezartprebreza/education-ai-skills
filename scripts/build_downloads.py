@@ -45,6 +45,7 @@ def download_files(root=ROOT):
         files = {str(Path(name) / path.relative_to(prefix)).replace("\\", "/"): data
                  for path, data in bundles.items() if path.is_relative_to(prefix)}
         files[f"{name}/START-HERE.md"] = guide
+        files[f"{name}/GETTING-STARTED.md"] = (root / "docs/GETTING-STARTED.md").read_bytes()
         files[f"{name}/BUNDLE.json"] = (json.dumps({
             "version": version, "audience": audience, "skills": skills,
             "repository": catalog["repository"],

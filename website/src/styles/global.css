@@ -18,7 +18,7 @@ h2 { font-size: 19px; line-height: 1.35; font-weight: 650; }
 .header-inner { max-width: 1200px; margin: auto; min-height: 74px; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; color: #232c26; font-size: 17px; }
 .brand svg { color: var(--green); }
-nav { display: flex; align-items: center; gap: 25px; }
+nav { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
 nav a { display: inline-flex; align-items: center; gap: 3px; color: #525d55; font-size: 14px; text-decoration: none; }
 nav a:hover { color: var(--green); text-decoration: underline; }
 main { max-width: 1200px; margin: auto; padding: 0 32px 64px; min-height: 70vh; }
@@ -102,6 +102,8 @@ pre { font: 12px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x
 .example pre { max-height: 350px; background: #edf1ec; padding: 12px; }
 .example a { font-size: 11px; }
 .guide { max-width: 800px; margin: auto; }
+.beginner-guide { max-width: 800px; }
+.heading-actions { display: flex; flex-wrap: wrap; gap: 0 24px; }
 .download-entry { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 14px; }
 .download-requirements { color: var(--muted); font-size: 13px; margin-bottom: 0; max-width: 750px; }
 .download-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }

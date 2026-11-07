@@ -5,6 +5,9 @@ They are not a standalone application, a trained AI model, or a model subscripti
 Use an installed, institution-approved client with the account/model access it requires.
 Ordinary web-chat attachments do not install these bundles as skills.
 
+New to these applications? Read [Choose Your AI Application](GETTING-STARTED.md) first.
+It covers application setup, first tasks, troubleshooting and the planned local-assistant option.
+
 ## 1. Download and extract
 
 Choose the professor or student ZIP, then extract it with your file manager. Open the
