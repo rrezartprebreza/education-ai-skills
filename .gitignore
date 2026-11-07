@@ -10,3 +10,8 @@ website/test-results/
 website/playwright-report/
 evaluations/results/
 private/
+local-assistant/node_modules/
+local-assistant/dist/
+local-assistant/.astro/
+local-assistant/test-results/
+local-assistant/playwright-report/

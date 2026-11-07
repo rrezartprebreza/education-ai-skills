@@ -103,6 +103,9 @@ pre { font: 12px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x
 .example a { font-size: 11px; }
 .guide { max-width: 800px; margin: auto; }
 .beginner-guide { max-width: 800px; }
+.local-option { margin-left: 24px; }
+.local-download { margin-top: 30px; padding: 24px 0; border-top: 1px solid var(--border); }
+.local-download p { color: var(--muted); max-width: 750px; font-size: 14px; }
 .heading-actions { display: flex; flex-wrap: wrap; gap: 0 24px; }
 .download-entry { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 14px; }
 .download-requirements { color: var(--muted); font-size: 13px; margin-bottom: 0; max-width: 750px; }
@@ -132,6 +135,7 @@ pre { font: 12px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x
   .site-footer { margin: 0 20px; align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 520px) {
+  .local-option { display: flex; margin-left: 0; }
   .download-grid { grid-template-columns: minmax(0, 1fr); }
   .header-inner { gap: 10px; flex-wrap: wrap; padding-top: 14px; padding-bottom: 12px; }
   .brand { font-size: 16px; }
@@ -147,4 +151,7 @@ pre { font: 12px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x
   .audience-filters button { gap: 6px; font-size: 12px; }
   .audience-filters svg { width: 15px; }
 }
+.local-preview { margin: 0 0 32px; max-width: 960px; }
+.local-preview img { display: block; width: 100%; height: auto; border: 1px solid var(--border); }
+.local-preview figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }

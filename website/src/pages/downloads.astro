@@ -30,6 +30,11 @@ const guide = await renderMarkdown(await readFile(resolve(ROOT, 'docs/DOWNLOADS.
       </article>
     ))}
   </section>
+  <section class="local-download" aria-label="Local assistant option">
+    <h2>Third option: Local AI Assistant</h2>
+    <p>Experimental source preview for Ollama. Requires Node.js and a separately downloaded model; no paid API account required.</p>
+    <a href={`${BASE}local/`}>Local assistant download and setup</a>
+  </section>
   <div class="download-resources">
     <a href={`${REPO}/blob/main/docs/DOWNLOADS.md`}><FileText size={16} aria-hidden="true" />Setup guide source</a>
     <a href={`${BASE}downloads/SHA256SUMS.txt`} download>Download checksums</a>

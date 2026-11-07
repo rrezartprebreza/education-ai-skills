@@ -1,6 +1,6 @@
 # Education AI Skills
 
-**Practical teaching and learning workflows for professors and students using Claude Code and Codex.**
+**Practical teaching and learning workflows for professors and students using Claude Code, Codex, or a local Ollama assistant.**
 
 Ten skills for lecture preparation, assessment design, feedback, tutoring, practice, study planning,
 source checking, and responsible AI use. Built for higher education, with adaptable computer-science examples.
@@ -25,9 +25,20 @@ source checking, and responsible AI use. Built for higher education, with adapta
 ## Installation
 
 **New to AI applications?** [Start with the beginner guide](https://rrezartprebreza.github.io/education-ai-skills/start/)
-or [read it in this repository](docs/GETTING-STARTED.md). It covers choosing Claude Code or
-Codex, installing the application, adding skills, trying a first task and troubleshooting.
-The proposed local AI assistant is planned, not included or available yet.
+or [read it in this repository](docs/GETTING-STARTED.md). It covers Claude Code and Codex
+installation, adding skills, trying a first task and troubleshooting, with a separate local setup guide.
+Choose one route:
+
+| Option | Setup | Requirements |
+| --- | --- | --- |
+| Claude Code | [Beginner guide](docs/GETTING-STARTED.md), ZIP or marketplace below | Approved Claude Code access |
+| Codex | [Beginner guide](docs/GETTING-STARTED.md), ZIP or marketplace below | Approved Codex account/model access |
+| Local AI assistant | [Local setup guide](docs/LOCAL-ASSISTANT.md) and separate source ZIP | Node.js 24+, Ollama and a downloaded local model |
+
+The local assistant is an **experimental source preview**, not a one-click installer or a
+trained model. It needs no paid API account, but hardware and model downloads are not included.
+It has no browsing, code execution or LMS tools. Small connection-test models are not evidence
+of reliable teaching quality. Claude Code and Codex remain supported independently.
 
 ### Download a ZIP
 
@@ -36,10 +47,14 @@ and follow the included `START-HERE.md`. Each ZIP contains six skills, examples,
 the license and version metadata. [Read the setup guide](docs/DOWNLOADS.md) for folder locations,
 first prompts, updates and removal. Checksums are published alongside the downloads.
 
-These are skills, **not an AI model or standalone application**. You need Claude Code or
+The professor/student ZIPs are skills, **not an AI model or standalone application**. You need Claude Code or
 Codex with appropriate account/model access. Extract the ZIP and copy the individual skill
 folders into your course project's skills directory; uploading the whole ZIP to ordinary
 web chat is not an installation. Choose the ZIP method or marketplace method below, not both.
+
+The separate [local assistant source download](https://rrezartprebreza.github.io/education-ai-skills/local/)
+includes the chat application's source and all ten skills. It still needs Node.js and Ollama;
+no model weights or subscriptions are bundled.
 
 Choose **one audience bundle** to start. Each contains four audience-specific skills and the two
 shared skills. Installing both can show duplicate shared skills in some clients; use individual

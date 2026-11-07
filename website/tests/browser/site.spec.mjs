@@ -44,7 +44,7 @@ test('skill page examples and prompt copying', async ({ page, context }) => {
 test('responsive pages and real maintainer image', async ({ page }, info) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  for (const path of ['', 'skills/research-source-checking/', 'skills/assessment-design/', 'guide/', 'downloads/', 'start/']) {
+  for (const path of ['', 'skills/research-source-checking/', 'skills/assessment-design/', 'guide/', 'downloads/', 'start/', 'local/']) {
     await page.goto(`${base}${path}`);
     await expect(page.locator('h1')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
@@ -57,6 +57,8 @@ test('responsive pages and real maintainer image', async ({ page }, info) => {
   await page.screenshot({ path: info.outputPath('downloads.png'), fullPage: true, animations: 'disabled', scale: 'css' });
   await page.goto(`${base}start/`);
   await page.screenshot({ path: info.outputPath('start.png'), animations: 'disabled', scale: 'css' });
+  await page.goto(`${base}local/`);
+  await page.screenshot({ path: info.outputPath('local.png'), animations: 'disabled', scale: 'css' });
 });
 
 test('beginner guide connects both application routes to downloads', async ({ page }) => {
@@ -67,7 +69,7 @@ test('beginner guide connects both application routes to downloads', async ({ pa
   await expect(page.getByRole('heading', { name: 'Codex setup', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'official desktop quickstart', exact: true })).toHaveAttribute('href', 'https://code.claude.com/docs/en/desktop-quickstart');
   await expect(page.getByRole('link', { name: 'official desktop setup', exact: true })).toHaveAttribute('href', 'https://learn.chatgpt.com/docs/quickstart');
-  await expect(page.getByRole('row').filter({ hasText: 'Local AI assistant' })).toContainText('Planned, not available');
+  await expect(page.getByRole('row').filter({ hasText: 'Local AI assistant' })).toContainText('Experimental source preview');
   for (const width of [320, 390, 768, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
@@ -79,6 +81,22 @@ test('beginner guide connects both application routes to downloads', async ({ pa
   await expect(page.locator('h1')).toHaveText('Download Skills');
   await page.getByRole('link', { name: 'New to Claude Code or Codex? Start here', exact: true }).click();
   await expect(page.locator('h1')).toHaveText('Start Here');
+});
+
+test('third option has a working local source download', async ({ page, request }, info) => {
+  await page.goto(`${base}start/`);
+  await page.getByRole('link', { name: 'Set up the local AI assistant', exact: true }).click();
+  await expect(page.locator('h1')).toHaveText('Local AI Assistant');
+  const preview = page.locator('.local-preview img');
+  await expect(preview).toBeVisible();
+  expect(await preview.evaluate(image => image.complete && image.naturalWidth === 1280)).toBe(true);
+  const metadata = await (await request.get(`${base}downloads/local-assistant.json`)).json();
+  const pending = page.waitForEvent('download');
+  await page.getByRole('link', { name: 'Download local assistant source ZIP', exact: true }).click();
+  const download = await pending;
+  const path = info.outputPath(metadata.filename); await download.saveAs(path);
+  expect(download.suggestedFilename()).toBe(metadata.filename);
+  expect(createHash('sha256').update(await readFile(path)).digest('hex')).toBe(metadata.sha256);
 });
 
 test('both ZIP downloads match their published checksums', async ({ page, request }, info) => {

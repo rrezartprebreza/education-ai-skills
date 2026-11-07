@@ -6,7 +6,7 @@ Use an installed, institution-approved client with the account/model access it r
 Ordinary web-chat attachments do not install these bundles as skills.
 
 New to these applications? Read [Choose Your AI Application](GETTING-STARTED.md) first.
-It covers application setup, first tasks, troubleshooting and the planned local-assistant option.
+It covers application setup, first tasks, troubleshooting and the experimental local-assistant option.
 
 ## 1. Download and extract
 
