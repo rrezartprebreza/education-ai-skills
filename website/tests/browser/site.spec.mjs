@@ -44,7 +44,7 @@ test('skill page examples and prompt copying', async ({ page, context }) => {
 test('responsive pages and real maintainer image', async ({ page }, info) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  for (const path of ['', 'skills/research-source-checking/', 'skills/assessment-design/', 'guide/', 'downloads/']) {
+  for (const path of ['', 'skills/research-source-checking/', 'skills/assessment-design/', 'guide/', 'downloads/', 'start/']) {
     await page.goto(`${base}${path}`);
     await expect(page.locator('h1')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
@@ -55,6 +55,30 @@ test('responsive pages and real maintainer image', async ({ page }, info) => {
   await page.screenshot({ path: info.outputPath('catalog.png'), fullPage: true, animations: 'disabled', scale: 'css' });
   await page.goto(`${base}downloads/`);
   await page.screenshot({ path: info.outputPath('downloads.png'), fullPage: true, animations: 'disabled', scale: 'css' });
+  await page.goto(`${base}start/`);
+  await page.screenshot({ path: info.outputPath('start.png'), animations: 'disabled', scale: 'css' });
+});
+
+test('beginner guide connects both application routes to downloads', async ({ page }) => {
+  await page.goto(base);
+  await page.getByRole('link', { name: 'Choose your AI application', exact: true }).click();
+  await expect(page.locator('h1')).toHaveText('Start Here');
+  await expect(page.getByRole('heading', { name: 'Claude Code setup', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Codex setup', exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'official desktop quickstart', exact: true })).toHaveAttribute('href', 'https://code.claude.com/docs/en/desktop-quickstart');
+  await expect(page.getByRole('link', { name: 'official desktop setup', exact: true })).toHaveAttribute('href', 'https://learn.chatgpt.com/docs/quickstart');
+  await expect(page.getByRole('row').filter({ hasText: 'Local AI assistant' })).toContainText('Planned, not available');
+  for (const width of [320, 390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    for (const link of await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link').all()) {
+      await expect(link).toBeVisible();
+    }
+  }
+  await page.getByRole('link', { name: 'Get the skill bundles', exact: true }).click();
+  await expect(page.locator('h1')).toHaveText('Download Skills');
+  await page.getByRole('link', { name: 'New to Claude Code or Codex? Start here', exact: true }).click();
+  await expect(page.locator('h1')).toHaveText('Start Here');
 });
 
 test('both ZIP downloads match their published checksums', async ({ page, request }, info) => {
@@ -92,6 +116,9 @@ test('download links and setup guide work without JavaScript', async ({ browser 
     await expect(page.getByRole('heading', { name: '2. Add skills to a teaching or study project' })).toBeVisible();
     await page.locator('.checksum summary').first().click();
     await expect(page.locator('.checksum[open] code')).toBeVisible();
+    await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Start Here', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'Claude Code setup', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Codex setup', exact: true })).toBeVisible();
   } finally {
     await context.close();
   }

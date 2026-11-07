@@ -28,3 +28,6 @@ Keep confidential teaching material outside this public repository, even if a UI
 Downloads are built from the same canonical content as the plugin packages, not checked-in ZIP
 copies. Each archive includes `docs/DOWNLOADS.md` as `START-HERE.md`. CI retains the downloads
 as a workflow artifact for PR review; only a merge to main publishes them to GitHub Pages.
+
+The `/start/` beginner page renders `docs/GETTING-STARTED.md`, which is also included in both
+ZIPs. Update that source document to keep website and offline onboarding consistent.

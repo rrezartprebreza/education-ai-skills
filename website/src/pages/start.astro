@@ -1,0 +1,18 @@
+---
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { Download } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+import { BASE } from '../lib/commands.mjs';
+import { ROOT, renderMarkdown } from '../lib/content.mjs';
+const guide = await renderMarkdown(await readFile(resolve(ROOT, 'docs/GETTING-STARTED.md'), 'utf8'), 'docs/GETTING-STARTED.md');
+---
+<Layout title="Start Here" description="Choose Claude Code or Codex, set up your education skills, and try your first teaching or learning task.">
+  <div class="detail-heading">
+    <p class="eyebrow">FOR PROFESSORS &amp; STUDENTS</p>
+    <h1>Start Here</h1>
+    <p class="lead">Choose your AI application and prepare your first teaching or learning session.</p>
+    <a class="download-entry" href={`${BASE}downloads/`}><Download size={17} aria-hidden="true" />Get the skill bundles</a>
+  </div>
+  <article class="prose beginner-guide" set:html={guide} />
+</Layout>
