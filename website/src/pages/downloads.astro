@@ -14,6 +14,7 @@ const guide = await renderMarkdown(await readFile(resolve(ROOT, 'docs/DOWNLOADS.
     <h1>Download Skills</h1>
     <p class="lead">Professor and student bundles. Examples, templates, and a setup guide included.</p>
     <p class="download-requirements">Requires a compatible AI application and its account/model access. No model or subscription is included.</p>
+    <a class="download-entry" href={`${BASE}start/`}>New to Claude Code or Codex? Start here</a>
   </div>
   <section class="download-grid" aria-label="Skill downloads">
     {downloads.map(bundle => (

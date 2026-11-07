@@ -24,6 +24,11 @@ source checking, and responsible AI use. Built for higher education, with adapta
 
 ## Installation
 
+**New to AI applications?** [Start with the beginner guide](https://rrezartprebreza.github.io/education-ai-skills/start/)
+or [read it in this repository](docs/GETTING-STARTED.md). It covers choosing Claude Code or
+Codex, installing the application, adding skills, trying a first task and troubleshooting.
+The proposed local AI assistant is planned, not included or available yet.
+
 ### Download a ZIP
 
 [Download professor or student bundles](https://rrezartprebreza.github.io/education-ai-skills/downloads/)

@@ -1,8 +1,10 @@
 import hashlib
 import io
 import json
+import posixpath
 from pathlib import Path
 import shutil
+import re
 import sys
 import tempfile
 import unittest
@@ -29,10 +31,11 @@ class DownloadsTest(unittest.TestCase):
                 self.assertEqual(6, len(metadata["skills"]))
                 expected = {str(p.relative_to("plugins")): content for p, content in bundles.items()
                             if p.parts[1] == name}
-                self.assertEqual(set(expected) | {f"{name}/BUNDLE.json", f"{name}/START-HERE.md"}, set(archive.namelist()))
+                self.assertEqual(set(expected) | {f"{name}/BUNDLE.json", f"{name}/START-HERE.md", f"{name}/GETTING-STARTED.md"}, set(archive.namelist()))
                 for path, content in expected.items():
                     self.assertEqual(content, archive.read(path))
                 self.assertEqual((ROOT / "docs/DOWNLOADS.md").read_bytes(), archive.read(f"{name}/START-HERE.md"))
+                self.assertEqual((ROOT / "docs/GETTING-STARTED.md").read_bytes(), archive.read(f"{name}/GETTING-STARTED.md"))
                 with tempfile.TemporaryDirectory() as directory:
                     root = Path(directory)
                     archive.extractall(root)
@@ -51,6 +54,21 @@ class DownloadsTest(unittest.TestCase):
             self.assertEqual(len(data), entry["bytes"])
             self.assertEqual(hashlib.sha256(data).hexdigest(), entry["sha256"])
             self.assertIn(f"{entry['sha256']}  {entry['filename']}\n".encode(), first["SHA256SUMS.txt"])
+
+    def test_offline_markdown_links_stay_inside_each_bundle(self):
+        for filename, content in download_files().items():
+            if not filename.endswith(".zip"):
+                continue
+            with zipfile.ZipFile(io.BytesIO(content)) as archive:
+                names = set(archive.namelist())
+                for name in names:
+                    if not name.endswith(".md"):
+                        continue
+                    for target in re.findall(r"\[[^\]]*\]\(([^)]+)\)", archive.read(name).decode()):
+                        if target.startswith(("https://", "http://", "#")):
+                            continue
+                        resolved = posixpath.normpath(posixpath.join(posixpath.dirname(name), target.split("#")[0]))
+                        self.assertIn(resolved, names, f"Broken offline link in {name}: {target}")
 
     def test_write_and_rebuild(self):
         with tempfile.TemporaryDirectory() as directory:
