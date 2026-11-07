@@ -4,6 +4,9 @@
 
 - Catalog IDs, skill frontmatter, local links, examples, templates and Codex metadata.
 - Exact generated bundle contents for both audiences and marketplace paths.
+- ZIP downloads match the canonical plugin content, extract into both clients' documented
+  skill layouts, and have reproducible bytes and matching checksums. This is a filesystem
+  installation check, not proof of runtime selection or model behavior in either client.
 - Lecture timing/objective references and rubric arithmetic on synthetic fixtures, including
   negative cases. These validators do not judge fairness, pedagogy, subject accuracy or learning.
 - Website content rendering, links, audience filters, copy controls and responsive layouts.

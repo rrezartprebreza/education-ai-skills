@@ -24,6 +24,18 @@ source checking, and responsible AI use. Built for higher education, with adapta
 
 ## Installation
 
+### Download a ZIP
+
+[Download professor or student bundles](https://rrezartprebreza.github.io/education-ai-skills/downloads/)
+and follow the included `START-HERE.md`. Each ZIP contains six skills, examples, templates,
+the license and version metadata. [Read the setup guide](docs/DOWNLOADS.md) for folder locations,
+first prompts, updates and removal. Checksums are published alongside the downloads.
+
+These are skills, **not an AI model or standalone application**. You need Claude Code or
+Codex with appropriate account/model access. Extract the ZIP and copy the individual skill
+folders into your course project's skills directory; uploading the whole ZIP to ordinary
+web chat is not an installation. Choose the ZIP method or marketplace method below, not both.
+
 Choose **one audience bundle** to start. Each contains four audience-specific skills and the two
 shared skills. Installing both can show duplicate shared skills in some clients; use individual
 canonical folders if you need a custom mix.

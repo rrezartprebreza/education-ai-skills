@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 const base = '/education-ai-skills/';
 
 test('audience, search, URL state and reset', async ({ page }) => {
@@ -42,7 +44,7 @@ test('skill page examples and prompt copying', async ({ page, context }) => {
 test('responsive pages and real maintainer image', async ({ page }, info) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  for (const path of ['', 'skills/research-source-checking/', 'skills/assessment-design/', 'guide/']) {
+  for (const path of ['', 'skills/research-source-checking/', 'skills/assessment-design/', 'guide/', 'downloads/']) {
     await page.goto(`${base}${path}`);
     await expect(page.locator('h1')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
@@ -51,6 +53,48 @@ test('responsive pages and real maintainer image', async ({ page }, info) => {
   expect(errors).toEqual([]);
   await page.goto(base);
   await page.screenshot({ path: info.outputPath('catalog.png'), fullPage: true, animations: 'disabled', scale: 'css' });
+  await page.goto(`${base}downloads/`);
+  await page.screenshot({ path: info.outputPath('downloads.png'), fullPage: true, animations: 'disabled', scale: 'css' });
+});
+
+test('both ZIP downloads match their published checksums', async ({ page, request }, info) => {
+  await page.goto(base);
+  await page.getByRole('link', { name: 'Download a skills bundle', exact: true }).click();
+  await expect(page.locator('h1')).toHaveText('Download Skills');
+  const response = await request.get(`${base}downloads/manifest.json`);
+  expect(response.ok()).toBe(true);
+  const manifest = await response.json();
+  expect(manifest).toHaveLength(2);
+  for (const bundle of manifest) {
+    const pending = page.waitForEvent('download');
+    await page.getByRole('link', { name: `Download ${bundle.audience} ZIP`, exact: true }).click();
+    const download = await pending;
+    expect(download.suggestedFilename()).toBe(bundle.filename);
+    const path = info.outputPath(bundle.filename);
+    await download.saveAs(path);
+    expect(await download.failure()).toBeNull();
+    const bytes = await readFile(path);
+    expect(bytes.subarray(0, 4).toString('hex')).toBe('504b0304');
+    expect(bytes.length).toBe(bundle.bytes);
+    expect(createHash('sha256').update(bytes).digest('hex')).toBe(bundle.sha256);
+  }
+  const checksums = await request.get(`${base}downloads/SHA256SUMS.txt`);
+  expect(checksums.ok()).toBe(true);
+  for (const bundle of manifest) expect(await checksums.text()).toContain(`${bundle.sha256}  ${bundle.filename}`);
+});
+
+test('download links and setup guide work without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  try {
+    const page = await context.newPage();
+    await page.goto(`http://127.0.0.1:4337${base}downloads/`);
+    await expect(page.getByRole('link', { name: 'Download professor ZIP', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '2. Add skills to a teaching or study project' })).toBeVisible();
+    await page.locator('.checksum summary').first().click();
+    await expect(page.locator('.checksum[open] code')).toBeVisible();
+  } finally {
+    await context.close();
+  }
 });
 
 test('all skill routes resolve', async ({ page, request }) => {

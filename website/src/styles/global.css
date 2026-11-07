@@ -102,6 +102,22 @@ pre { font: 12px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x
 .example pre { max-height: 350px; background: #edf1ec; padding: 12px; }
 .example a { font-size: 11px; }
 .guide { max-width: 800px; margin: auto; }
+.download-entry { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 14px; }
+.download-requirements { color: var(--muted); font-size: 13px; margin-bottom: 0; max-width: 750px; }
+.download-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.download-card { min-width: 0; border: 1px solid var(--border); border-radius: 6px; padding: 24px; background: white; }
+.download-card h2 { margin: 8px 0 14px; }
+.download-card ul { padding-left: 18px; margin: 0 0 22px; font-size: 14px; }
+.download-card li { margin-bottom: 5px; }
+.download-link { color: white; background: var(--green); border-color: var(--green); text-decoration: none; font-size: 14px; }
+.download-link:hover { background: #104936; }
+.download-size { display: block; margin-top: 8px; font-size: 12px; color: var(--muted); }
+.checksum { margin-top: 15px; font-size: 12px; }
+.checksum summary { cursor: pointer; }
+.checksum code { display: block; overflow-wrap: anywhere; padding-top: 8px; }
+.download-resources { display: flex; flex-wrap: wrap; gap: 12px 24px; padding: 22px 0; font-size: 13px; border-bottom: 1px solid var(--border); }
+.download-resources a { display: inline-flex; align-items: center; gap: 6px; }
+.download-guide { max-width: 800px; padding-top: 30px; }
 @media (max-width: 800px) {
   .header-inner, main { padding-left: 20px; padding-right: 20px; }
   .workspace { grid-template-columns: minmax(0, 1fr); gap: 20px; }
@@ -114,6 +130,7 @@ pre { font: 12px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x
   .site-footer { margin: 0 20px; align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 520px) {
+  .download-grid { grid-template-columns: minmax(0, 1fr); }
   .header-inner { gap: 10px; flex-wrap: wrap; padding-top: 14px; padding-bottom: 12px; }
   .brand { font-size: 16px; }
   nav { width: 100%; gap: 22px; }

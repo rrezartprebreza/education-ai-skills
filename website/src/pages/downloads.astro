@@ -1,0 +1,37 @@
+---
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { Download, FileText } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+import { BASE, REPO } from '../lib/commands.mjs';
+import { ROOT, catalog, renderMarkdown } from '../lib/content.mjs';
+const downloads = JSON.parse(await readFile(resolve(ROOT, 'website/public/downloads/manifest.json'), 'utf8'));
+const guide = await renderMarkdown(await readFile(resolve(ROOT, 'docs/DOWNLOADS.md'), 'utf8'), 'docs/DOWNLOADS.md');
+---
+<Layout title="Download Skills" description="Professor and student skill bundles for Claude Code and Codex, with setup instructions and examples.">
+  <div class="detail-heading">
+    <p class="eyebrow">CLAUDE CODE &amp; CODEX</p>
+    <h1>Download Skills</h1>
+    <p class="lead">Professor and student bundles. Examples, templates, and a setup guide included.</p>
+    <p class="download-requirements">Requires a compatible AI application and its account/model access. No model or subscription is included.</p>
+  </div>
+  <section class="download-grid" aria-label="Skill downloads">
+    {downloads.map(bundle => (
+      <article class="download-card">
+        <span class:list={['category', bundle.audience]}>Version {bundle.version} · {bundle.skills.length} skills</span>
+        <h2>{bundle.audience === 'professor' ? 'Professor bundle' : 'Student bundle'}</h2>
+        <ul>{bundle.skills.map(id => <li>{catalog.skills.find(skill => skill.id === id)?.title}</li>)}</ul>
+        <a class="text-button download-link" href={`${BASE}downloads/${bundle.filename}`} download={bundle.filename}>
+          <Download size={18} aria-hidden="true" />Download {bundle.audience} ZIP
+        </a>
+        <span class="download-size">ZIP · {Math.ceil(bundle.bytes / 1024)} KB</span>
+        <details class="checksum"><summary>SHA-256 checksum</summary><code>{bundle.sha256}</code></details>
+      </article>
+    ))}
+  </section>
+  <div class="download-resources">
+    <a href={`${REPO}/blob/main/docs/DOWNLOADS.md`}><FileText size={16} aria-hidden="true" />Setup guide source</a>
+    <a href={`${BASE}downloads/SHA256SUMS.txt`} download>Download checksums</a>
+  </div>
+  <section class="prose download-guide" aria-label="Setup guide" set:html={guide} />
+</Layout>
